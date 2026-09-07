@@ -1,1 +1,31 @@
-{"framework":"nextjs","experimentalServices":{"backend":{"entrypoint":"backend/main.py","routePrefix":"/api"}}}
+
+{
+  "services": {
+    "frontend": {
+      "root": "./",
+      "framework": "nextjs"
+    },
+    "backend": {
+      "root": "backend/",
+      "entrypoint": "main:app"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
+}
+
+
+
+
