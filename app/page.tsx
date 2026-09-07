@@ -212,113 +212,61 @@ export default function Page() {
     setResume(file)
   }
 
-  // const analyze = async () => {
-  //   setError('')
-  //   setLoading(true)
-
-  //   try {
-  //     if (!resume) {
-  //       throw new Error('Please upload your PDF resume first.')
-  //     }
-
-  //     if (!jd.trim()) {
-  //       throw new Error('Please paste the job description first.')
-  //     }
-
-  //     const body = new FormData()
-
-  //     body.append('resume', resume)
-  //     body.append('job_description', jd.trim())
-
-  //     const response = await fetch(
-  //       'http://127.0.0.1:8000/analyze',
-  //       {
-  //         method: 'POST',
-  //         body
-  //       }
-  //     )
-
-  //     if (!response.ok) {
-  //       const errorData = await response.json().catch(() => null)
-
-  //       throw new Error(
-  //         errorData?.detail ||
-  //           `Analysis failed. Server returned ${response.status}.`
-  //       )
-  //     }
-
-  //     const data = await response.json()
-
-  //     setResult({
-  //       ...demo,
-  //       ...data
-  //     })
-  //   } catch (err) {
-  //     console.error('Analyze error:', err)
-
-  //     setResult(null)
-
-  //     setError(
-  //       err instanceof Error
-  //         ? err.message
-  //         : 'Something went wrong while analyzing the resume.'
-  //     )
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
   const analyze = async () => {
-  setError('')
-  setLoading(true)
+    setError('')
+    setLoading(true)
 
-  try {
-    if (!resume) {
-      throw new Error('Please upload your PDF resume first.')
-    }
+    try {
+      if (!resume) {
+        throw new Error('Please upload your PDF resume first.')
+      }
 
-    if (!jd.trim()) {
-      throw new Error('Please paste the job description first.')
-    }
+      if (!jd.trim()) {
+        throw new Error('Please paste the job description first.')
+      }
 
-    const body = new FormData()
+      const body = new FormData()
 
-    body.append('resume', resume)
-    body.append('job_description', jd.trim())
+      body.append('resume', resume)
+      body.append('job_description', jd.trim())
 
-    const response = await fetch('/api/analyze', {
-      method: 'POST',
-      body
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null)
-
-      throw new Error(
-        errorData?.detail ||
-          `Analysis failed. Server returned ${response.status}.`
+      const response = await fetch(
+        'http://127.0.0.1:8000/analyze',
+        {
+          method: 'POST',
+          body
+        }
       )
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null)
+
+        throw new Error(
+          errorData?.detail ||
+            `Analysis failed. Server returned ${response.status}.`
+        )
+      }
+
+      const data = await response.json()
+
+      setResult({
+        ...demo,
+        ...data
+      })
+    } catch (err) {
+      console.error('Analyze error:', err)
+
+      setResult(null)
+
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong while analyzing the resume.'
+      )
+    } finally {
+      setLoading(false)
     }
-
-    const data = await response.json()
-
-    setResult({
-      ...demo,
-      ...data
-    })
-  } catch (err) {
-    console.error('Analyze error:', err)
-
-    setResult(null)
-
-    setError(
-      err instanceof Error
-        ? err.message
-        : 'Something went wrong while analyzing the resume.'
-    )
-  } finally {
-    setLoading(false)
   }
-}
 
   const reset = () => {
     setResume(null)
