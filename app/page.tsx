@@ -698,7 +698,7 @@ export default function Page() {
           </div>
         </div>
 
-        {/* <footer className="footer">
+        <footer className="footer">
           <span>
             CareerMatch <b>AI</b> · Built for better applications
           </span>
@@ -706,7 +706,7 @@ export default function Page() {
           <span>
             v1.0 · <a href="#privacy">Privacy first</a>
           </span>
-        </footer> */}
+        </footer>
       </section>
     </main>
   )
